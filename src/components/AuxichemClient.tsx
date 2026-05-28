@@ -4,8 +4,11 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, FileText, Beaker } from "lucide-react";
 import ThreeCanvas from "@/components/ThreeCanvas";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function AuxichemClient() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -51,27 +54,14 @@ export default function AuxichemClient() {
     {
       title: "Textile Binders",
       desc: "Water-based emulsion polymers designed for printing, dyeing, and stiffening operations in apparel fabrication.",
-      colSpan: "md:col-span-2",
     },
     {
       title: "Paint Binders",
       desc: "Co-polymer binders optimizing pigment loading, adhesion, and exterior weatherability metrics.",
-      colSpan: "md:col-span-1",
-    },
-    {
-      title: "Technical Binders",
-      desc: "High-performance binders engineered for flocking, laminating, non-woven glass matrices, and carpets.",
-      colSpan: "md:col-span-1",
     },
     {
       title: "Adhesives",
       desc: "Industrial formulations providing high shear strength, heat resistance, and customized curing parameters.",
-      colSpan: "md:col-span-1",
-    },
-    {
-      title: "Construction Chemicals",
-      desc: "Specialty additives, sealants, water-proofing binders, and concrete modifiers for heavy-duty structural grids.",
-      colSpan: "md:col-span-2",
     },
   ];
 
@@ -168,7 +158,7 @@ export default function AuxichemClient() {
             {categories.map((cat) => (
               <div
                 key={cat.title}
-                className={`bento-card bg-white border border-[#e1e3e4] hover:bg-[#f3f4f5] hover:border-black p-8 flex flex-col justify-between h-[280px] rounded-none shadow-none transition-colors duration-300 ${cat.colSpan}`}
+                className="bento-card bg-white border border-[#e1e3e4] hover:bg-[#f3f4f5] hover:border-black p-8 flex flex-col justify-between h-[280px] rounded-none shadow-none transition-colors duration-300"
               >
                 <div className="flex flex-col gap-4">
                   <span className="font-mono text-[10px] text-[#555f70] font-bold uppercase tracking-widest">
@@ -181,14 +171,18 @@ export default function AuxichemClient() {
                     {cat.desc}
                   </p>
                 </div>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 font-mono text-[10px] tracking-widest uppercase text-black hover:text-[#555f70] font-bold self-start border-b border-black pb-0.5"
-                >
-                  Inquire Specifications <ArrowRight size={10} />
-                </Link>
               </div>
             ))}
+          </div>
+
+          {/* Single Inquire Specifications Button */}
+          <div className="flex justify-center">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-4 font-mono text-xs tracking-widest uppercase bg-black text-white hover:bg-white hover:text-black border border-black transition-all duration-300 rounded-none font-bold gap-2"
+            >
+              Inquire Specifications <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </section>

@@ -3,7 +3,10 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Compass } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function AboutClient() {
   const containerRef = useRef<HTMLDivElement>(null);

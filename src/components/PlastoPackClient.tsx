@@ -4,8 +4,11 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, FileText, CheckCircle2 } from "lucide-react";
 import ThreeCanvas from "@/components/ThreeCanvas";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // Jerry Can Blueprint SVG Icon
 function JerryCanSvg() {

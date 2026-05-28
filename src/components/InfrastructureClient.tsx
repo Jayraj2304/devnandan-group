@@ -6,6 +6,8 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Database, Cpu } from "lucide-react";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function InfrastructureClient() {
   const containerRef = useRef<HTMLDivElement>(null);
   const leftColRef = useRef<HTMLDivElement>(null);
