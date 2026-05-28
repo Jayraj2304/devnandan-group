@@ -70,7 +70,7 @@ function TiltCard({ title, desc, details, link, index }: TiltCardProps) {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="flex-shrink-0 w-[85vw] md:w-[35rem] h-[55vh] md:h-[28rem] bg-white border border-[#e1e3e4] hover:bg-[#f8f9fa] rounded-none p-8 md:p-10 flex flex-col justify-between select-none shadow-none hover:border-black transition-colors duration-300"
+      className="division-card-animate flex-shrink-0 w-[85vw] md:w-[28rem] h-[50vh] md:h-[26rem] bg-white border border-[#e1e3e4] hover:bg-[#f8f9fa] rounded-none p-8 md:p-10 flex flex-col justify-between select-none shadow-none hover:border-black transition-colors duration-300 opacity-0"
       style={{ transformStyle: "preserve-3d" }}
     >
       <div className="flex flex-col gap-6" style={{ transform: "translateZ(20px)" }}>
@@ -196,6 +196,24 @@ export default function HomeClient() {
     const getScrollAmount = () => {
       return container.scrollWidth - window.innerWidth;
     };
+
+    // Staggered reveal animation for division cards when section comes into view
+    gsap.fromTo(
+      ".division-card-animate",
+      { y: 60, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1.0,
+        ease: "power3.out",
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: trigger,
+          start: "top 65%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
 
     gsap.to(container, {
       x: () => -getScrollAmount(),
