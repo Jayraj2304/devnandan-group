@@ -20,7 +20,14 @@ export default function InfrastructureClient() {
       { y: 0, opacity: 1, duration: 1, ease: "power4.out", stagger: 0.1 }
     );
 
-    // 2. Split screen scroll trigger (only on desktop >= 768px)
+    // 2. Smooth reveal animation for left visual panel on load
+    gsap.fromTo(
+      ".reveal-infra-card",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 0.2 }
+    );
+
+    // 3. Split screen scroll trigger (only on desktop >= 768px)
     let mm = gsap.matchMedia();
 
     mm.add("(min-width: 768px)", () => {
@@ -92,9 +99,9 @@ export default function InfrastructureClient() {
         {/* Left Column (Sticky Visual Panel) */}
         <div
           ref={leftColRef}
-          className="w-full h-auto md:h-[65vh] flex flex-col justify-center transition-all duration-500"
+          className="w-full h-auto md:h-[65vh] flex flex-col justify-center"
         >
-          <div className="bg-white border border-black rounded-none p-8 md:p-10 flex flex-col justify-between h-[300px] md:h-full relative overflow-hidden shadow-none">
+          <div className="reveal-infra-card bg-white border border-black rounded-none p-8 md:p-10 flex flex-col justify-between h-[300px] md:h-full relative overflow-hidden shadow-none opacity-0">
             
             {/* Visual Header depending on active section */}
             <div className="flex flex-col gap-4">
