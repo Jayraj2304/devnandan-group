@@ -88,7 +88,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${spaceMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${spaceMono.variable} antialiased`}
     >
       <head>
         <script
@@ -96,7 +96,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaJson) }}
         />
       </head>
-      <body className="min-h-full bg-background text-foreground flex flex-col font-sans">
+      <body className="min-h-screen bg-background text-foreground flex flex-col font-sans">
         <LenisProvider>
           <Navbar />
           <main className="flex-grow flex flex-col pt-[70px] relative z-10" id="main-content">

@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,6 +11,7 @@ export const LenisContext = createContext<Lenis | null>(null);
 export function LenisProvider({ children }: { children: React.ReactNode }) {
   const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Register GSAP ScrollTrigger
@@ -43,6 +45,24 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
       lenis.destroy();
     };
   }, []);
+
+  // Reset scroll position, clear ScrollTrigger cache, and resize Lenis on route changes
+  useEffect(() => {
+    const lenis = lenisRef.current;
+    if (!lenis) return;
+
+    // Reset scroll to top immediately
+    lenis.scrollTo(0, { immediate: true });
+
+    // Give the DOM a tiny frame to paint the new route before recalculating heights
+    const resizeTimeout = setTimeout(() => {
+      lenis.resize();
+      ScrollTrigger.clearScrollMemory();
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => clearTimeout(resizeTimeout);
+  }, [pathname]);
 
   return (
     <LenisContext.Provider value={lenisInstance}>

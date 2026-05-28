@@ -193,18 +193,19 @@ export default function HomeClient() {
     const trigger = triggerRef.current;
     if (!container || !trigger) return;
 
-    // Wait for DOM layout calculations
-    const totalWidth = container.scrollWidth - window.innerWidth + 128; // Padding offset
+    const getScrollAmount = () => {
+      return container.scrollWidth - window.innerWidth;
+    };
 
     gsap.to(container, {
-      x: -totalWidth,
+      x: () => -getScrollAmount(),
       ease: "none",
       scrollTrigger: {
         trigger: trigger,
         pin: true,
         scrub: 0.5,
         start: "top top",
-        end: () => `+=${totalWidth}`,
+        end: () => `+=${getScrollAmount()}`,
         invalidateOnRefresh: true,
       },
     });
@@ -269,8 +270,9 @@ export default function HomeClient() {
         className="relative min-h-screen bg-[#f8f9fa] border-t border-[#e1e3e4] overflow-hidden"
         aria-labelledby="divisions-heading"
       >
-        <div className="sticky top-0 h-screen flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto overflow-hidden">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+        <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden w-full">
+          {/* Pinned Title & Description */}
+          <div className="max-w-7xl w-full mx-auto px-6 md:px-12 flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div className="flex flex-col gap-4">
               <span className="font-mono text-xs text-[#555f70] uppercase tracking-widest font-bold">
                 subsidiary portfolios
@@ -288,20 +290,22 @@ export default function HomeClient() {
           </div>
 
           {/* Cards Track */}
-          <div
-            ref={containerRef}
-            className="flex items-center gap-8 pl-1 md:pl-2 w-max"
-          >
-            {divisions.map((div, index) => (
-              <TiltCard
-                key={div.title}
-                title={div.title}
-                desc={div.desc}
-                details={div.details}
-                link={div.link}
-                index={index}
-              />
-            ))}
+          <div className="w-full overflow-hidden">
+            <div
+              ref={containerRef}
+              className="flex items-center gap-8 w-max pl-6 md:pl-12 xl:pl-[calc((100vw-1280px)/2+3rem)] pr-6 md:pr-12 xl:pr-[calc((100vw-1280px)/2+3rem)]"
+            >
+              {divisions.map((div, index) => (
+                <TiltCard
+                  key={div.title}
+                  title={div.title}
+                  desc={div.desc}
+                  details={div.details}
+                  link={div.link}
+                  index={index}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
