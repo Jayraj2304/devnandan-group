@@ -151,6 +151,7 @@ export default function HomeClient() {
   const heroRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
+  const trackWrapperRef = useRef<HTMLDivElement>(null);
 
   const divisions = [
     {
@@ -188,14 +189,11 @@ export default function HomeClient() {
       "-=0.6"
     );
 
-    // 2. Horizontal scroll layout
+    // 2. Horizontal scroll layout (dynamic based on viewport and card size)
     const container = containerRef.current;
     const trigger = triggerRef.current;
-    if (!container || !trigger) return;
-
-    const getScrollAmount = () => {
-      return container.scrollWidth - window.innerWidth;
-    };
+    const wrapper = trackWrapperRef.current;
+    if (!container || !trigger || !wrapper) return;
 
     // Staggered reveal animation for division cards when section comes into view
     gsap.fromTo(
@@ -215,18 +213,66 @@ export default function HomeClient() {
       }
     );
 
-    gsap.to(container, {
-      x: () => -getScrollAmount(),
-      ease: "none",
-      scrollTrigger: {
-        trigger: trigger,
-        pin: true,
-        scrub: 0.5,
-        start: "top top",
-        end: () => `+=${getScrollAmount()}`,
-        invalidateOnRefresh: true,
-      },
-    });
+    let ctx: any;
+
+    const setupScroll = () => {
+      if (ctx) ctx.revert();
+
+      const contentWidth = 1408; // 3 cards of 448px + 2 gaps of 32px
+      const viewportWidth = window.innerWidth;
+      const exceeds = contentWidth > viewportWidth;
+
+      if (exceeds) {
+        wrapper.classList.remove("xl:justify-center");
+        wrapper.classList.add("justify-start");
+        
+        if (viewportWidth >= 1280) {
+          container.style.paddingLeft = "calc((100vw - 1280px) / 2 + 3rem)";
+          container.style.paddingRight = "calc((100vw - 1280px) / 2 + 3rem)";
+        } else if (viewportWidth >= 768) {
+          container.style.paddingLeft = "3rem";
+          container.style.paddingRight = "3rem";
+        } else {
+          container.style.paddingLeft = "1.5rem";
+          container.style.paddingRight = "1.5rem";
+        }
+
+        const getScrollAmount = () => {
+          return container.scrollWidth - window.innerWidth;
+        };
+
+        ctx = gsap.context(() => {
+          gsap.to(container, {
+            x: () => -getScrollAmount(),
+            ease: "none",
+            scrollTrigger: {
+              trigger: trigger,
+              pin: true,
+              scrub: 0.5,
+              start: "top top",
+              end: () => `+=${getScrollAmount()}`,
+              invalidateOnRefresh: true,
+            },
+          });
+        });
+      } else {
+        // Fits in viewport -> Center the cards instead of scrolling
+        wrapper.classList.remove("justify-start");
+        wrapper.classList.add("xl:justify-center");
+        
+        container.style.paddingLeft = "0px";
+        container.style.paddingRight = "0px";
+        gsap.set(container, { x: 0 });
+      }
+    };
+
+    setupScroll();
+    window.addEventListener("resize", setupScroll);
+
+    return () => {
+      window.removeEventListener("resize", setupScroll);
+      if (ctx) ctx.revert();
+    };
   }, { scope: heroRef });
 
   const scrollDownToDivisions = () => {
@@ -308,10 +354,10 @@ export default function HomeClient() {
           </div>
 
           {/* Cards Track */}
-          <div className="w-full overflow-hidden">
+          <div ref={trackWrapperRef} className="w-full overflow-hidden flex justify-start">
             <div
               ref={containerRef}
-              className="flex items-center gap-8 w-max pl-6 md:pl-12 xl:pl-[calc((100vw-1280px)/2+3rem)] pr-6 md:pr-12 xl:pr-[calc((100vw-1280px)/2+3rem)]"
+              className="flex items-center gap-8 w-max pl-6 md:pl-12 xl:pl-[calc((100vw_-_1280px)_/_2_+_3rem)] pr-6 md:pr-12 xl:pr-[calc((100vw_-_1280px)_/_2_+_3rem)]"
             >
               {divisions.map((div, index) => (
                 <TiltCard
