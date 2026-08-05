@@ -84,6 +84,51 @@ function OpenTopSvg() {
   );
 }
 
+function MiniDrumIcon({ variant = "dr", size = 36 }: { variant?: "ibc" | "jc" | "bt" | "cs" | "dr"; size?: number }) {
+  if (variant === "ibc") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 44 44" fill="none">
+        <rect x="6" y="8" width="32" height="28" stroke="#191c1d" strokeWidth="1.4" rx="2" />
+        <path d="M6 14 H38 M6 22 H38 M6 30 H38 M14 8 V36 M22 8 V36 M30 8 V36" stroke="#191c1d" strokeWidth="0.8" opacity="0.6" />
+        <rect x="18" y="2" width="8" height="6" stroke="#191c1d" strokeWidth="1.2" fill="none" />
+      </svg>
+    );
+  }
+  if (variant === "jc") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 44 44" fill="none">
+        <path d="M14 12 L14 6 L24 6 L24 10 L30 12 L30 38 L14 38 Z" stroke="#191c1d" strokeWidth="1.4" />
+        <rect x="18" y="2" width="6" height="4" stroke="#191c1d" strokeWidth="1.2" />
+        <rect x="17" y="22" width="10" height="6" stroke="#191c1d" strokeWidth="0.8" opacity="0.6" />
+      </svg>
+    );
+  }
+  if (variant === "bt") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 44 44" fill="none">
+        <path d="M16 14 Q12 14 12 18 L12 36 Q12 40 16 40 L28 40 Q32 40 32 36 L32 18 Q32 14 28 14 Z" stroke="#191c1d" strokeWidth="1.4" />
+        <rect x="18" y="6" width="8" height="10" stroke="#191c1d" strokeWidth="1.2" />
+      </svg>
+    );
+  }
+  if (variant === "cs") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 44 44" fill="none">
+        <path d="M8 12 L36 12 L36 38 L8 38 Z" stroke="#191c1d" strokeWidth="1.4" strokeDasharray="3 2" />
+        <text x="22" y="28" textAnchor="middle" fontSize="14" fontWeight="700" fill="#191c1d">+</text>
+      </svg>
+    );
+  }
+  return (
+    <svg width={size} height={size} viewBox="0 0 44 44" fill="none">
+      <ellipse cx="22" cy="9" rx="14" ry="3.5" stroke="#191c1d" strokeWidth="1.4" />
+      <path d="M8 9 L8 35 Q8 38.5 22 38.5 Q36 38.5 36 35 L36 9" stroke="#191c1d" strokeWidth="1.4" />
+      <ellipse cx="22" cy="9" rx="14" ry="3.5" fill="rgba(25,28,29,0.08)" />
+      <path d="M8 18 Q22 21 36 18 M8 28 Q22 31 36 28" stroke="#191c1d" strokeWidth="0.8" opacity="0.5" />
+    </svg>
+  );
+}
+
 export default function PlastoPackClient() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -166,33 +211,65 @@ export default function PlastoPackClient() {
 
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto" aria-labelledby="plasto-heading">
-        <div className="flex flex-col gap-6 max-w-4xl">
-          <span className="font-mono text-xs uppercase tracking-widest text-[#555f70] font-bold reveal-plasto-hero">
-            DEVNANDAN PLASTO PACK
-          </span>
-          <h1
-            id="plasto-heading"
-            className="font-sans text-4xl md:text-7xl font-bold tracking-tight text-black leading-[1.1] reveal-plasto-hero"
-          >
-            World-Class HDPE Packaging.
-          </h1>
-          <p className="font-sans text-sm md:text-lg text-[#555f70] leading-relaxed max-w-[550px] mt-2 reveal-plasto-hero">
-            Premium-quality, leak-proof industrial plastic packaging containers engineered for hazardous fluids and food-grade raw materials storage.
-          </p>
+        <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex flex-col gap-6 max-w-4xl">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#555f70] font-bold reveal-plasto-hero">
+              DEVNANDAN PLASTO PACK
+            </span>
+            <h1
+              id="plasto-heading"
+              className="font-sans text-4xl md:text-7xl font-bold tracking-tight text-black leading-[1.1] reveal-plasto-hero"
+            >
+              World-Class HDPE Packaging.
+            </h1>
+            <p className="font-sans text-sm md:text-lg text-[#555f70] leading-relaxed max-w-[550px] mt-2 reveal-plasto-hero">
+              Premium-quality, leak-proof industrial plastic packaging containers engineered for hazardous fluids and food-grade raw materials storage.
+            </p>
 
-          <div className="flex flex-wrap items-center gap-4 mt-6 reveal-plasto-hero">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3.5 font-mono text-xs tracking-widest uppercase bg-black text-white hover:bg-white hover:text-black hover:border-black border border-transparent transition-all duration-300 rounded-none font-bold gap-2"
-            >
-              Request container quote <ArrowRight size={14} />
-            </Link>
-            <button
-              onClick={handleDownloadBrochure}
-              className="inline-flex items-center justify-center px-6 py-3.5 font-mono text-xs tracking-widest uppercase bg-transparent border border-black text-black hover:bg-[#edeeef] transition-all duration-300 rounded-none cursor-pointer font-bold gap-2"
-            >
-              Download Brochure <FileText size={14} />
-            </button>
+            <div className="flex flex-wrap items-center gap-4 mt-6 reveal-plasto-hero">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-6 py-3.5 font-mono text-xs tracking-widest uppercase bg-black text-white hover:bg-white hover:text-black hover:border-black border border-transparent transition-all duration-300 rounded-none font-bold gap-2"
+              >
+                Request container quote <ArrowRight size={14} />
+              </Link>
+              <button
+                onClick={handleDownloadBrochure}
+                className="inline-flex items-center justify-center px-6 py-3.5 font-mono text-xs tracking-widest uppercase bg-transparent border border-black text-black hover:bg-[#edeeef] transition-all duration-300 rounded-none cursor-pointer font-bold gap-2"
+              >
+                Download Brochure <FileText size={14} />
+              </button>
+            </div>
+          </div>
+
+          <div className="flex-shrink-0 w-full max-w-[280px] lg:max-w-[320px]">
+            <div className="border border-[#e1e3e4] bg-white p-6 flex flex-col gap-4 h-full">
+              <div className="flex justify-between items-center">
+                <span className="font-mono text-[10px] tracking-widest text-[#555f70]">INDRAD LINE B · LIVE OUTPUT</span>
+                <span className="h-2 w-2 rounded-full bg-[#191c1d] animate-pulse" />
+              </div>
+              <div className="grid grid-cols-4 gap-2 flex-1">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="animate-fade-in-up aspect-square bg-[#f8f9fa] border border-[#e1e3e4] rounded-md flex items-center justify-center"
+                    style={{ animationDelay: `${i * 0.05}s` }}
+                  >
+                    <MiniDrumIcon variant={i % 4 === 0 ? "ibc" : i % 3 === 0 ? "jc" : "dr"} size={30} />
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="border border-[#e1e3e4] p-2 flex flex-col gap-0.5">
+                  <span className="font-mono text-[10px] uppercase text-[#555f70]">UNITS / HR</span>
+                  <span className="font-mono text-sm font-bold text-black">1,840</span>
+                </div>
+                <div className="border border-[#e1e3e4] p-2 flex flex-col gap-0.5">
+                  <span className="font-mono text-[10px] uppercase text-[#555f70]">YIELD</span>
+                  <span className="font-mono text-sm font-bold text-black">99.96%</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

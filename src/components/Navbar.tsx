@@ -84,8 +84,8 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
+    { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Infrastructure", href: "/infrastructure" },
     { name: "Sustainability", href: "/sustainability" },
   ];
 

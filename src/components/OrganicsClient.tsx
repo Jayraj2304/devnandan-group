@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, FileText, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import ThreeCanvas from "@/components/ThreeCanvas";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -74,11 +74,13 @@ export default function OrganicsClient() {
         }
       );
     });
+
+
   }, { scope: containerRef });
 
   const stats = [
     { value: "99.6%", label: "BATCH CONSISTENCY" },
-    { value: "50 KG → 12 MT", label: "PRODUCTION RANGE" },
+    { value: "1 MT → 60 MT", label: "PRODUCTION RANGE" },
     { value: "< 14 DAYS", label: "PILOT VELOCITY" },
     { value: "NDA", label: "BY DEFAULT" },
   ];
@@ -110,10 +112,6 @@ export default function OrganicsClient() {
     { step: "05", name: "Lifecycle Care", desc: "Post-batch QC reporting, raw material safety declarations, and ongoing logistics coordinate alignment for regular campaign runs." },
   ];
 
-  const handleDownloadBrochure = () => {
-    alert("Downloading Organics Division Profile PDF. (Mock Action)");
-  };
-
   return (
     <div ref={containerRef} className="w-full bg-[#f8f9fa] text-black">
       {/* Background WebGL */}
@@ -121,37 +119,126 @@ export default function OrganicsClient() {
 
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto" aria-labelledby="org-heading">
-        <div className="flex flex-col gap-6 max-w-4xl">
-          <span className="font-mono text-xs uppercase tracking-widest text-[#555f70] font-bold reveal-org-hero">
-            DEVNANDAN ORGANICS
-          </span>
-          <h1
-            id="org-heading"
-            className="font-sans text-4xl md:text-7xl font-bold tracking-tight text-black leading-[1.1] reveal-org-hero"
-          >
-            Specialty chemistry with a clean ledger.
-          </h1>
-          <p className="font-sans text-sm md:text-lg text-[#555f70] leading-relaxed max-w-[550px] mt-2 reveal-org-hero">
-            Custom synthesis and contract manufacturing of high-purity organic intermediates engineered for modern pharmaceutical and polymer clients.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4 mt-6 reveal-org-hero">
-            <button className="inline-flex items-center justify-center px-6 py-3.5 font-mono text-xs tracking-widest uppercase bg-black text-white hover:bg-white hover:text-black hover:border-black border border-transparent transition-all duration-300 rounded-none cursor-pointer font-bold gap-2">
-              Start a synthesis brief <ArrowRight size={14} />
-            </button>
-            <button
-              onClick={handleDownloadBrochure}
-              className="inline-flex items-center justify-center px-6 py-3.5 font-mono text-xs tracking-widest uppercase bg-transparent border border-black text-black hover:bg-[#edeeef] transition-all duration-300 rounded-none cursor-pointer font-bold gap-2"
+        <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex flex-col gap-6 max-w-4xl">
+            <span className="font-mono text-xs uppercase tracking-widest text-[#555f70] font-bold reveal-org-hero">
+              DEVNANDAN ORGANICS
+            </span>
+            <h1
+              id="org-heading"
+              className="font-sans text-4xl md:text-7xl font-bold tracking-tight text-black leading-[1.1] reveal-org-hero"
             >
-              Download Brochure <FileText size={14} />
-            </button>
+              Specialty chemistry with a clean ledger.
+            </h1>
+            <p className="font-sans text-sm md:text-lg text-[#555f70] leading-relaxed max-w-[550px] mt-2 reveal-org-hero">
+              Custom synthesis and contract manufacturing of high-purity organic intermediates engineered for modern pharmaceutical and polymer clients.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4 mt-6 reveal-org-hero">
+              <button className="inline-flex items-center justify-center px-6 py-3.5 font-mono text-xs tracking-widest uppercase bg-black text-white hover:bg-white hover:text-black hover:border-black border border-transparent transition-all duration-300 rounded-none cursor-pointer font-bold gap-2">
+                Start a synthesis brief <ArrowRight size={14} />
+              </button>
+            </div>
+          </div>
+
+          {/* Animated Flask Illustration */}
+          <div className="flex-shrink-0 w-full max-w-[280px] lg:max-w-[320px]">
+            <div className="border border-[#e1e3e4] bg-white p-6 flex flex-col gap-4 h-full">
+              <div className="flex justify-between items-center">
+                <span className="font-mono text-[10px] tracking-widest text-[#555f70]">PILOT R-02 · LOT 24-A091</span>
+                <span className="h-2 w-2 rounded-full bg-[#191c1d] animate-pulse" />
+              </div>
+              <svg viewBox="0 0 280 320" className="flex-1 max-h-[280px] w-full" aria-hidden="true">
+                <defs>
+                  <linearGradient id="flask-liq" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stopColor="#191c1d" stopOpacity="0.25" />
+                    <stop offset="1" stopColor="#191c1d" stopOpacity="0.4" />
+                  </linearGradient>
+                  <clipPath id="flask-clip">
+                    <path d="M 120 60 L 160 60 L 160 140 L 220 240 Q 230 280 190 290 L 90 290 Q 50 280 60 240 L 120 140 Z" />
+                  </clipPath>
+                </defs>
+                {/* Flask outline */}
+                <path
+                  d="M 120 60 L 160 60 L 160 140 L 220 240 Q 230 280 190 290 L 90 290 Q 50 280 60 240 L 120 140 Z"
+                  fill="none"
+                  stroke="#191c1d"
+                  strokeWidth="1.5"
+                />
+                <line x1="120" y1="60" x2="160" y2="60" stroke="#191c1d" strokeWidth="1.5" />
+                {/* Liquid */}
+                <g clipPath="url(#flask-clip)">
+                  <rect x="40" y="200" width="200" height="120" fill="url(#flask-liq)" />
+                  <path
+                    d="M 40 200 Q 90 192 140 200 T 240 200 L 240 215 L 40 215 Z"
+                    fill="#191c1d"
+                    opacity="0.2"
+                  >
+                    <animate
+                      attributeName="d"
+                      dur="4s"
+                      repeatCount="indefinite"
+                      values="M 40 200 Q 90 192 140 200 T 240 200 L 240 215 L 40 215 Z;M 40 200 Q 90 208 140 200 T 240 200 L 240 215 L 40 215 Z;M 40 200 Q 90 192 140 200 T 240 200 L 240 215 L 40 215 Z"
+                    />
+                  </path>
+                  {/* Bubbles */}
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <circle
+                      key={i}
+                      cx={80 + ((i * 22) % 140)}
+                      cy={280}
+                      r={1.5 + (i % 3) * 0.5}
+                      fill="#fff"
+                      stroke="#555f70"
+                      strokeWidth="0.5"
+                      opacity="0.6"
+                    >
+                      <animate
+                        attributeName="cy"
+                        dur={`${3 + i * 0.3}s`}
+                        repeatCount="indefinite"
+                        values="280;205"
+                      />
+                      <animate
+                        attributeName="opacity"
+                        dur={`${3 + i * 0.3}s`}
+                        repeatCount="indefinite"
+                        values="0;0.7;0"
+                      />
+                    </circle>
+                  ))}
+                </g>
+                {/* Measurement marks */}
+                {[230, 210, 190, 170].map((y, i) => (
+                  <g key={y}>
+                    <line x1="200" y1={y} x2="215" y2={y} stroke="#555f70" strokeWidth="0.8" />
+                    <text x="220" y={y + 3} fontSize="7" fontFamily="monospace" fill="#555f70">
+                      {(2 - i * 0.5).toFixed(1)}L
+                    </text>
+                  </g>
+                ))}
+              </svg>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { label: "PURITY", value: "99.84%" },
+                  { label: "YIELD", value: "87.2%" },
+                  { label: "HPLC", value: "PASS" },
+                  { label: "KF", value: "0.04%" },
+                ].map((item) => (
+                  <div key={item.label} className="border border-[#e1e3e4] p-2 flex flex-col gap-0.5">
+                    <span className="font-mono text-[10px] uppercase text-[#555f70]">{item.label}</span>
+                    <span className="font-mono text-sm font-bold text-black">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* 5-Column Data Bar */}
       <section className="data-bar border-y border-black bg-white select-none relative z-10" aria-label="Organics Performance Data">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 text-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-center">
           {stats.map((stat, idx) => (
             <div
               key={idx}
@@ -163,14 +250,6 @@ export default function OrganicsClient() {
               </span>
             </div>
           ))}
-          {/* Interactive Brochure Cell */}
-          <button
-            onClick={handleDownloadBrochure}
-            className="data-bar-cell p-6 bg-white text-black hover:bg-black hover:text-white border-t sm:border-t-0 sm:border-l border-black transition-all duration-300 font-mono text-xs tracking-widest uppercase text-center cursor-pointer flex items-center justify-center gap-2 font-bold min-h-[90px] rounded-none outline-none"
-            aria-label="Download Organics Division Profile PDF"
-          >
-            ↓ Download Division Profile
-          </button>
         </div>
       </section>
 

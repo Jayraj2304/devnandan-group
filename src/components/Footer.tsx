@@ -39,7 +39,6 @@ export default function Footer() {
 
   const internalLinks = [
     { name: "About Us", href: "/about" },
-    { name: "Infrastructure", href: "/infrastructure" },
     { name: "Sustainability", href: "/sustainability" },
     { name: "Contact us", href: "/contact" },
   ];

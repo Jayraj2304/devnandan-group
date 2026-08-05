@@ -61,53 +61,29 @@ export default function AboutClient() {
         }
       );
     });
-
-    // Mission items stagger hover trigger
-    gsap.fromTo(
-      ".mission-card",
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "power3.out",
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: ".mission-matrix",
-          start: "top 85%",
-        },
-      }
-    );
   }, { scope: containerRef });
 
   const timelineData = [
     {
-      year: "PHASE 01",
+      year: "[1998]",
       title: "Chemical Formulation & Synthesis",
       desc: "Founded with a clear focus on custom organic synthesis, contract manufacturing, and supplying high-purity chemical intermediates to pharmaceutical and industrial partners.",
     },
     {
-      year: "PHASE 02",
+      year: "[2005]",
       title: "Auxichem Integration",
       desc: "Expanded into specialty polymer binders, water-based emulsions, and industrial adhesives, catering to textile, carpet flock, technical laminates, and coatings sectors.",
     },
     {
-      year: "PHASE 03",
+      year: "[2012]",
       title: "Plasto Pack Blow Molding",
       desc: "Acquired packaging manufacturing capabilities, installing advanced parison control blow molding machinery to fabricate premium leak-resistant HDPE industrial containers.",
     },
     {
-      year: "PHASE 04",
+      year: "[2020]",
       title: "Consolidated Group Governance",
       desc: "Unified all subsidiaries under the Devnandan Group, aligning R&D labs, deploying rigorous GMP QC protocols, and securing ZDHC Level 3 ecological certifications.",
     },
-  ];
-
-  const missionItems = [
-    "Manufacture textile, carpet, flock, technical, paint & coating binders.",
-    "Produce adhesives, hardeners & customized polyol systems.",
-    "Provide durable application-specific plastic packaging solutions.",
-    "Ensure batch-to-batch consistency and reliable performance.",
   ];
 
   return (
@@ -131,10 +107,17 @@ export default function AboutClient() {
           <div className="md:w-1/3 flex items-center gap-3">
             <Compass className="text-[#555f70]" size={20} />
             <h2 id="vision-heading" className="font-mono text-xs uppercase tracking-widest text-[#555f70] font-bold">
-              Corporate Vision
+              Founder Vision
             </h2>
           </div>
-          <div className="md:w-2/3">
+          <div className="md:w-2/3 flex flex-col sm:flex-row gap-8 items-start">
+            <div className="flex-shrink-0 w-32 h-32 sm:w-40 sm:h-40 border border-[#e1e3e4] bg-white flex items-center justify-center overflow-hidden">
+              <svg width="100%" height="100%" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="160" height="160" fill="#f8f9fa"/>
+                <circle cx="80" cy="62" r="30" fill="none" stroke="#555f70" strokeWidth="1.5"/>
+                <path d="M30 145C30 115 52 98 80 98C108 98 130 115 130 145" fill="none" stroke="#555f70" strokeWidth="1.5"/>
+              </svg>
+            </div>
             <blockquote className="font-sans text-xl md:text-3xl font-light text-[#191c1d] leading-relaxed italic">
               &ldquo;To become a trusted and innovative industrial group delivering high-performance chemical solutions and reliable packaging systems, driven by quality, technology, sustainability and long-term customer value.&rdquo;
             </blockquote>
@@ -148,7 +131,7 @@ export default function AboutClient() {
               historical evolution
             </span>
             <h2 id="timeline-heading" className="font-sans text-3xl md:text-5xl font-bold tracking-tight text-black">
-              Development Timeline
+              Founding Timeline
             </h2>
           </div>
 
@@ -195,41 +178,6 @@ export default function AboutClient() {
                 );
               })}
             </div>
-          </div>
-        </section>
-
-        {/* Mission Matrix Section */}
-        <section className="border-t border-[#e1e3e4] pt-20" aria-labelledby="mission-heading">
-          <div className="flex flex-col gap-4 mb-16">
-            <span className="font-mono text-xs text-[#555f70] uppercase tracking-widest font-bold">
-              core operational mission
-            </span>
-            <h2 id="mission-heading" className="font-sans text-3xl md:text-5xl font-bold tracking-tight text-black">
-              Mission Matrix
-            </h2>
-          </div>
-
-          {/* Interactive Matrix Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mission-matrix">
-            {missionItems.map((mission, index) => (
-              <div
-                key={index}
-                className="mission-card group p-8 border border-[#e1e3e4] rounded-none bg-white hover:bg-[#f8f9fa] hover:border-black transition-all duration-300 flex items-start gap-5 shadow-none relative overflow-hidden"
-              >
-                <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-none bg-[#f9fafb] border border-[#e1e3e4] text-[#191c1d] group-hover:bg-black group-hover:text-white group-hover:border-black transition-all duration-300 font-mono text-xs font-bold">
-                  0{index + 1}
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#555f70] group-hover:text-black transition-colors duration-300 font-bold">
-                    Mission Vector
-                  </span>
-                  <p className="font-sans text-sm text-[#191c1d] leading-relaxed font-semibold">
-                    {mission}
-                  </p>
-                </div>
-              </div>
-            ))}
           </div>
         </section>
       </div>

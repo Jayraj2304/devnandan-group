@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -11,14 +11,6 @@ import ThreeCanvas from "@/components/ThreeCanvas";
 gsap.registerPlugin(ScrollTrigger);
 
 // Type definitions
-interface CounterProps {
-  value: number;
-  prefix?: string;
-  suffix?: string;
-  label: string;
-  decimals?: number;
-}
-
 interface TiltCardProps {
   title: string;
   desc: string;
@@ -83,12 +75,12 @@ function TiltCard({ title, desc, details, link, index }: TiltCardProps) {
         <h3 className="font-sans text-2xl md:text-3xl font-bold tracking-tight text-black leading-tight">
           {title}
         </h3>
-        <p className="font-sans text-xs md:text-sm text-[#555f70] leading-relaxed">
+        <p className="font-sans text-sm md:text-sm text-[#333e4f] leading-relaxed">
           {desc}
         </p>
         <ul className="flex flex-col gap-2 mt-2">
           {details.map((detail, idx) => (
-            <li key={idx} className="font-mono text-[10px] md:text-xs text-[#4c4546] flex items-center gap-2">
+            <li key={idx} className="font-mono text-xs md:text-sm text-[#4c4546] flex items-center gap-2">
               <span className="h-1 w-1 bg-black rounded-none" />
               {detail}
             </li>
@@ -103,49 +95,6 @@ function TiltCard({ title, desc, details, link, index }: TiltCardProps) {
       >
         Explore Division <ArrowRight size={12} className="transform group-hover:translate-x-1 transition-transform" />
       </Link>
-    </div>
-  );
-}
-
-// Scrolling Counters Component (Spreadsheet-Style Boxed Cells)
-function Counter({ value, prefix = "", suffix = "", label, decimals = 0 }: CounterProps) {
-  const [count, setCount] = useState(0);
-  const countRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    const obj = { val: 0 };
-    gsap.to(obj, {
-      val: value,
-      duration: 2.0,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: countRef.current,
-        start: "top 90%",
-        once: true,
-      },
-      onUpdate: () => {
-        setCount(Number(obj.val.toFixed(decimals)));
-      },
-    });
-  }, { scope: countRef });
-
-  return (
-    <div
-      ref={countRef}
-      className="flex flex-col border border-black rounded-none bg-white shadow-none overflow-hidden"
-    >
-      {/* Data display cell */}
-      <div className="p-8 flex items-center justify-center border-b border-[#e1e3e4] min-h-[120px]">
-        <span className="font-mono text-3xl md:text-5xl font-bold tracking-tighter text-black">
-          {prefix}{count.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}{suffix}
-        </span>
-      </div>
-      {/* Label cell */}
-      <div className="bg-[#f9fafb] px-4 py-3 text-center border-t-0">
-        <span className="font-mono text-[10px] tracking-widest uppercase text-[#555f70] font-bold block">
-          {label}
-        </span>
-      </div>
     </div>
   );
 }
@@ -300,9 +249,9 @@ export default function HomeClient() {
             id="hero-heading"
             className="font-sans text-4xl md:text-7xl font-bold tracking-tight text-[#191c1d] leading-[1.1] reveal-hero-text"
           >
-            Advanced Chemistry & Industrial Packaging.
+            Excellence, Engineered at Scale.
           </h1>
-          <p className="font-sans text-sm md:text-lg text-[#555f70] leading-relaxed max-w-[550px] mt-2 reveal-hero-sub">
+          <p className="font-sans text-sm md:text-lg text-[#333e4f] leading-relaxed max-w-[550px] mt-2 reveal-hero-sub">
             The Devnandan Group engineers authority-driven chemical systems, customized synthesis molecules, and reliable, high-integrity packaging containers for global enterprise operations.
           </p>
 
@@ -324,7 +273,7 @@ export default function HomeClient() {
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-10 left-6 md:left-12 flex items-center gap-3">
-          <span className="font-mono text-[10px] tracking-widest text-[#555f70] uppercase font-bold">
+          <span className="font-mono text-xs tracking-widest text-[#555f70] uppercase font-bold">
             Scroll to Navigate
           </span>
           <ArrowDown size={12} className="text-[#555f70] animate-bounce" />
@@ -351,7 +300,7 @@ export default function HomeClient() {
                 The Divisions
               </h2>
             </div>
-            <p className="font-sans text-xs md:text-sm text-[#555f70] max-w-sm mt-4 md:mt-0 leading-relaxed">
+            <p className="font-sans text-sm md:text-sm text-[#333e4f] max-w-sm mt-4 md:mt-0 leading-relaxed">
               Discover our structured organizational sectors spanning specialty organics, technical binder solutions, and high-performance packaging fabrication.
             </p>
           </div>
@@ -377,58 +326,74 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* Performance Matrix Section */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-white border-t border-[#e1e3e4]" aria-labelledby="performance-heading">
-        <div className="max-w-7xl mx-auto flex flex-col gap-16">
-          <div className="flex flex-col gap-4">
-            <span className="font-mono text-xs text-[#555f70] uppercase tracking-widest font-bold">
-              scale and precision metrics
-            </span>
-            <h2
-              id="performance-heading"
-              className="font-sans text-3xl md:text-5xl font-bold tracking-tight text-black"
-            >
-              Performance Matrix
-            </h2>
-          </div>
-
-          {/* Counters Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Counter value={38500} suffix=" SQ FT" label="FACILITY FOOTPRINT" />
-            <Counter value={6} prefix="1-" suffix=" kL" label="REACTOR CAPACITY" />
-            <Counter value={3} prefix="LEVEL " label="ZDHC COMPLIANCE" />
-            <Counter value={99.6} suffix="%" label="QC BATCH CONSISTENCY" decimals={1} />
-          </div>
-        </div>
-      </section>
-
       {/* Infinite Marquee Section */}
       <section className="py-8 border-y border-black bg-white overflow-hidden" aria-label="Corporate Accreditation Marquee">
         <div className="w-full overflow-hidden select-none">
-          <div className="animate-marquee font-mono text-xs tracking-widest uppercase text-black flex items-center gap-12 whitespace-nowrap">
-            <span>ISO 9001:2015 CERTIFIED</span>
-            <span>•</span>
-            <span>GMP-ALIGNED QC</span>
-            <span>•</span>
-            <span>ZDHC LEVEL 3 COMPLIANT</span>
-            <span>•</span>
-            <span>REACH COMPLIANT</span>
-            <span>•</span>
-            <span>ZERO LIQUID DISCHARGE (ZLD)</span>
-            <span>•</span>
-            <span>100% VIRGIN HDPE</span>
-            <span>•</span>
-            <span>ISO 9001:2015 CERTIFIED</span>
-            <span>•</span>
-            <span>GMP-ALIGNED QC</span>
-            <span>•</span>
-            <span>ZDHC LEVEL 3 COMPLIANT</span>
-            <span>•</span>
-            <span>REACH COMPLIANT</span>
-            <span>•</span>
-            <span>ZERO LIQUID DISCHARGE (ZLD)</span>
-            <span>•</span>
-            <span>100% VIRGIN HDPE</span>
+          <div className="animate-marquee flex items-center gap-24 whitespace-nowrap">
+            {/* Logo 1: Hexagon mark */}
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <path d="M18 2L32 10V26L18 34L4 26V10L18 2Z" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <path d="M18 10L25 14V22L18 26L11 22V14L18 10Z" stroke="#555f70" strokeWidth="1" fill="none"/>
+            </svg>
+            {/* Logo 2: Chevron mark */}
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <path d="M8 12L18 6L28 12" stroke="#191c1d" strokeWidth="1.5" strokeLinecap="square" fill="none"/>
+              <path d="M8 20L18 14L28 20" stroke="#555f70" strokeWidth="1" strokeLinecap="square" fill="none"/>
+              <path d="M8 28L18 22L28 28" stroke="#191c1d" strokeWidth="1.5" strokeLinecap="square" fill="none"/>
+            </svg>
+            {/* Logo 3: Circle-ring mark */}
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <circle cx="18" cy="18" r="14" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <circle cx="18" cy="18" r="8" stroke="#555f70" strokeWidth="1" fill="none"/>
+              <circle cx="18" cy="18" r="2" fill="#191c1d"/>
+            </svg>
+            {/* Logo 4: Triangle mark */}
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <path d="M18 4L33 32H3L18 4Z" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <path d="M18 14L26 28H10L18 14Z" stroke="#555f70" strokeWidth="1" fill="none"/>
+            </svg>
+            {/* Logo 5: Square-grid mark */}
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <rect x="4" y="4" width="12" height="12" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <rect x="20" y="4" width="12" height="12" stroke="#555f70" strokeWidth="1" fill="none"/>
+              <rect x="4" y="20" width="12" height="12" stroke="#555f70" strokeWidth="1" fill="none"/>
+              <rect x="20" y="20" width="12" height="12" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+            </svg>
+            {/* Logo 6: Diamond mark */}
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <path d="M18 2L34 18L18 34L2 18L18 2Z" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <path d="M18 10L26 18L18 26L10 18L18 10Z" stroke="#555f70" strokeWidth="1" fill="none"/>
+            </svg>
+
+            {/* Duplicate set for seamless loop */}
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <path d="M18 2L32 10V26L18 34L4 26V10L18 2Z" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <path d="M18 10L25 14V22L18 26L11 22V14L18 10Z" stroke="#555f70" strokeWidth="1" fill="none"/>
+            </svg>
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <path d="M8 12L18 6L28 12" stroke="#191c1d" strokeWidth="1.5" strokeLinecap="square" fill="none"/>
+              <path d="M8 20L18 14L28 20" stroke="#555f70" strokeWidth="1" strokeLinecap="square" fill="none"/>
+              <path d="M8 28L18 22L28 28" stroke="#191c1d" strokeWidth="1.5" strokeLinecap="square" fill="none"/>
+            </svg>
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <circle cx="18" cy="18" r="14" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <circle cx="18" cy="18" r="8" stroke="#555f70" strokeWidth="1" fill="none"/>
+              <circle cx="18" cy="18" r="2" fill="#191c1d"/>
+            </svg>
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <path d="M18 4L33 32H3L18 4Z" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <path d="M18 14L26 28H10L18 14Z" stroke="#555f70" strokeWidth="1" fill="none"/>
+            </svg>
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <rect x="4" y="4" width="12" height="12" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <rect x="20" y="4" width="12" height="12" stroke="#555f70" strokeWidth="1" fill="none"/>
+              <rect x="4" y="20" width="12" height="12" stroke="#555f70" strokeWidth="1" fill="none"/>
+              <rect x="20" y="20" width="12" height="12" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+            </svg>
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <path d="M18 2L34 18L18 34L2 18L18 2Z" stroke="#191c1d" strokeWidth="1.5" fill="none"/>
+              <path d="M18 10L26 18L18 26L10 18L18 10Z" stroke="#555f70" strokeWidth="1" fill="none"/>
+            </svg>
           </div>
         </div>
       </section>
