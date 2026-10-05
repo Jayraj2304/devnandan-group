@@ -119,7 +119,7 @@ export default function OrganicsClient() {
 
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto" aria-labelledby="org-heading">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
+        <div className="flex flex-col lg:flex-row lg:justify-between items-center gap-12">
           <div className="flex flex-col gap-6 max-w-4xl">
             <span className="font-mono text-xs uppercase tracking-widest text-[#555f70] font-bold reveal-org-hero">
               DEVNANDAN ORGANICS
@@ -244,7 +244,7 @@ export default function OrganicsClient() {
               key={idx}
               className="data-bar-cell p-6 border-b sm:border-b-0 sm:border-r border-[#e1e3e4] last:border-r-0 flex flex-col justify-center gap-1 min-h-[90px]"
             >
-              <span className="font-mono text-lg font-bold text-black">{stat.value}</span>
+              <span className="font-mono text-sm md:text-lg font-bold text-black">{stat.value}</span>
               <span className="font-mono text-[9px] uppercase tracking-widest text-[#555f70] font-bold">
                 {stat.label}
               </span>
